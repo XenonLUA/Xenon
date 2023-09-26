@@ -47,7 +47,7 @@ end
 
 -- Function to delay and retry parrying
 local function DelayedRetryParry(Ball)
-    wait(0.75) -- Wait for 0.75 seconds before retrying
+    wait(0.30) -- Wait for 0.75 seconds before retrying
     if not BallWasParried(Ball) then
         DeflectBall() -- Retry parrying
     end
@@ -117,7 +117,7 @@ end
 local function IsPlayerInCloseCombat()
     -- Replace this with your logic to check if the player is in close combat.
     -- For example, you can check the distance between the player and the ball.
-    local CloseCombatDistance = 5 -- You can adjust this distance as needed
+    local CloseCombatDistance = 7 -- You can adjust this distance as needed
     local Ball = (#Balls:GetChildren() > 0 and Balls:GetChildren()[1])
     
     if Ball then
@@ -212,7 +212,7 @@ Balls.ChildAdded:Connect(function(Ball)
             end
         end
 
-        if (tick() - OldTick >= 1/60) then
+        if (tick() - OldTick >= 7/60) then
             OldTick = tick()
             OldPosition = Ball.Position
         end
