@@ -71,7 +71,7 @@ local function Target(Character)
     end)
 end
 
-function DetectBall()
+local function DetectBall(visualizer)
     local Ball = FindBall()
     
   	if Ball then
@@ -88,12 +88,17 @@ function DetectBall()
   
         local Hit = Distance / BallVelocity
   
-        if Hit <= shared.config.hit_range then
-            return true
+        if Hit <= shared.config.hit_range and visualizer then
+            visualizer:DrawRay(PlayerPosition, BallPosition, Color3.new(0, 255, 0))
         end
+  
+        return Hit <= shared.config.hit_range
     end
     return false
 end
+
+local Visualizer = game:GetService("Visualizer")
+CheckDistance = Visualizer:Wr
 
 local function DeflectBall()
     if IsTargeted and DetectBall() then
@@ -144,6 +149,9 @@ local function CheckDistance()
         wait() -- No change to the delay here
     end
 end
+
+local Visualizer = game:GetService("Visualizer")
+CheckDistance = Visualizer:WrapFunction(CheckDistance)
 
 local UserInputService = game:GetService("UserInputService")
 
