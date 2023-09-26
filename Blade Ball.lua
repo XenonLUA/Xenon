@@ -47,7 +47,7 @@ end
 
 -- Function to delay and retry parrying
 local function DelayedRetryParry(Ball)
-    wait(0.1) -- Wait for 0.75 seconds before retrying
+    wait(0.75) -- Wait for 0.75 seconds before retrying
     if not BallWasParried(Ball) then
         DeflectBall() -- Retry parrying
     end
@@ -207,7 +207,7 @@ Balls.ChildAdded:Connect(function(Ball)
             print("Velocity: " .. Velocity)
             print("Time: " .. Distance / Velocity)
 
-            if (Distance / Velocity) <= 20 then
+            if (Distance / Velocity) <= 10 then
                 Parry()
             end
         end
