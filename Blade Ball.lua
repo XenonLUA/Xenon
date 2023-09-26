@@ -97,6 +97,7 @@ local function DetectBall(visualizer)
     return false
 end
 
+
 local Visualizer = game:GetService("Visualizer")
 CheckDistance = Visualizer:Wr
 
