@@ -190,7 +190,7 @@ local function DetectBall()
         Refresh(Ball)
     end)
 
-    local BallVelocity = cachedBallVelocity
+    local BallVelocity = Ball.Velocity
     local BallPosition = Ball.Position
 
     local PlayerPosition = Player.Character.HumanoidRootPart.Position
@@ -220,7 +220,7 @@ local function DetectBall()
     -- Consider the player's ping
     Hit = Hit * (1 - (game.Stats.Network.ServerStatsItem["Data Ping"].ChildAdded:Connect() / 1000))
 
-    return Hit <= Distance / LatencyAdjustedBallVelocity
+    return Hit <= Distance / BallVelocity
 end
 
 
