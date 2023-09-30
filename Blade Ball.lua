@@ -9,7 +9,7 @@ local Workspace = game:GetService("Workspace")
 local shared = {
     mode = 'Always',
     deflect_type = 'Remote',
-    adjustment = 2.45, -- Adjusted for faster parrying and better long-range detection
+    adjustment = 0.1, -- Adjusted for faster parrying and better long-range detection
     notifications = true,
     keybind = Enum.KeyCode.E
 }
@@ -22,8 +22,8 @@ local Balls = Workspace.Balls
 local RETRY_DELAY = 0.35 -- The highest delay
 local CLOSE_COMBAT_DELAY = 0.01 -- Delay when in close combat but not very close
 local VERY_CLOSE_COMBAT_DELAY = 0 -- No delay when very close
-local CLOSE_COMBAT_DISTANCE = 7 -- Activate close combat if the player is within 7 studs
-local VERY_CLOSE_COMBAT_DISTANCE = 4.75 -- Considered very close
+local CLOSE_COMBAT_DISTANCE = 6 -- Activate close combat if the player is within 7 studs
+local VERY_CLOSE_COMBAT_DISTANCE = 3.75 -- Considered very close
 local MIN_DELAY = 0 -- The minimum delay
 
 -- Functions
@@ -61,13 +61,13 @@ end
 local function DelayedRetryParry(Ball, delay)
     wait(delay)
     if not BallWasParried(Ball) then
-        DeflectBall()
+        GetPlayerFacingDirection()
     end
 end
 
 -- IsPlayerInCloseCombat function
 local function IsPlayerInCloseCombat()
-    local Ball = (Balls:GetDescendants() > 0 and Balls:GetChildren()[1])
+    local Ball = Balls:GetChildren("Ball")
 
     if Ball then
         local BallPosition = Ball.Position
@@ -75,7 +75,9 @@ local function IsPlayerInCloseCombat()
         local Distance = (BallPosition - PlayerPosition).Magnitude
         local Direction = (BallPosition - PlayerPosition).Unit
 
-        return Distance <= CLOSE_COMBAT_DISTANCE and Direction.Y > 0
+        -- Make sure the player is facing the ball.
+        local PlayerFacing = Player.Character.Humanoid:GetFacingDirection()
+        return Distance <= CLOSE_COMBAT_DISTANCE and Direction:Dot(PlayerFacing) > 0.1
     end
 
     return false
@@ -86,79 +88,142 @@ local function IsBallFrozen(Ball)
     return Ball.Anchored
 end
 
-local function DeflectBall()
-    if IsTarget() and DetectBall() then
-        if shared.deflect_type == 'Key Press' then
-            UserInputService.InputSimulator:KeyDown(shared.keybind)
-            UserInputService.InputSimulator:KeyUp(shared.keybind)
-        else
-            Remotes.ParryButtonPress:Fire()
-        end
+local function IsBallInRange()
+    local Ball = (Balls:GetChildren() > 0 and Balls:GetChildren()[1])
 
-        -- Check if the ball was parried and retry if necessary
-        local delay = RETRY_DELAY
+    if Ball then
+        local BallPosition = Ball.Position
+        local PlayerPosition = Player.Character.HumanoidRootPart.Position
+        local Distance = (BallPosition - PlayerPosition).Magnitude
 
-        if IsPlayerInCloseCombat() then
-            local Ball = (Balls:GetDescendants() > 0 and Balls:GetDescendants()[1])
+        return Distance <= PARRYING_RANGE
+    end
 
-            if Ball then
-                local BallPosition = Ball.Position
-                local PlayerPosition = Player.Character.HumanoidRootPart.Position
-                local Distance = (BallPosition - PlayerPosition).Magnitude
+    return false
+end
 
-                if Distance <= VERY_CLOSE_COMBAT_DISTANCE then
-                    delay = VERY_CLOSE_COMBAT_DELAY -- No delay when very close to the ball
-                elseif Distance <= CLOSE_COMBAT_DISTANCE then
-                    delay = CLOSE_COMBAT_DELAY -- Short delay when in close combat but not very close
-                else
-                    delay = MIN_DELAY -- Minimum delay when in close combat but not very close
+local function GetBallVelocity()
+    local Ball = (Balls:GetChildren() > 0 and Balls:GetChildren()[1])
+
+    if Ball then
+        return Ball.Velocity
+    end
+
+    return Vector3.new(0, 0, 0)
+end
+
+local function GetBallRotation()
+    local Ball = (Balls:GetDescendants() > 0 and Balls:GetDescendants()[1])
+
+    if Ball then
+        return Ball.CFrame.Rotation
+    end
+
+    return CFrame.new()
+end
+
+local function GetPlayerFacingDirection()
+    return Player.Character.HumanoidRootPart.CFrame.Magnitude
+end
+
+if IsTarget() and IsInRange() and GetBallVelocity():Magnitude() <= PARRYING_SPEED and GetBallRotation():Magnitude() <= PARRYING_ROTATION_SPEED and GetPlayerFacingDirection():Dot(GetBallVelocity()) > 0.9 then
+    if shared.deflect_type == 'Key Press' then
+        UserInputService.InputSimulator:KeyDown(shared.keybind)
+        UserInputService.InputSimulator:KeyUp(shared.keybind)
+    else
+        Remotes.ParryButtonPress:Fire()
+    end
+
+    -- Check if the ball was parried and retry if necessary
+    local delay = RETRY_DELAY
+
+    if IsPlayerInCloseCombat() then
+        local Ball = (Balls:GetDescendants() > 0 and Balls:GetDescendants()[1])
+
+        if Ball then
+            local BallPosition = Ball.Position
+            local PlayerPosition = Player.Character.HumanoidRootPart.Position
+            local Distance = (BallPosition - PlayerPosition).Magnitude
+
+            if Distance <= VERY_CLOSE_COMBAT_DISTANCE then
+                delay = VERY_CLOSE_COMBAT_DELAY -- No delay when very close to the ball
+            elseif Distance <= CLOSE_COMBAT_DISTANCE then
+                delay = CLOSE_COMBAT_DELAY -- Short delay when in close combat but not very close
+            else
+                delay = MIN_DELAY -- Minimum delay when in close combat but not very close
+            end
+
+            -- Immediate parry attempt in close combat
+            if delay == MIN_DELAY then
+                while IsPlayerInCloseCombat() and IsBallInRange() and GetBallVelocity():Magnitude() <= PARRYING_SPEED and GetBallRotation():Magnitude() <= PARRYING_ROTATION_SPEED and GetPlayerFacingDirection():Dot(GetBallVelocity()) > 0.1 do
+                    GetPlayerFacingDirection()
                 end
-
-                -- Immediate parry attempt in close combat
-                if delay == MIN_DELAY then
-                    while IsPlayerInCloseCombat() and DetectBall() and IsTarget() do
-                        DeflectBall()
-                    end
-                else
-                    DelayedRetryParry(Balls, delay)
-                end
+            else
+                DelayedRetryParry(Balls, delay)
             end
         end
     end
 end
 
+
 -- DetectBall function
 local function DetectBall()
-    local Ball = (Balls:GetDescendants() > 0 and Balls:GetChildren()[1]) or (Balls.ChildAdded:Wait() and Balls:GetChildren()[1])
+    local Ball = (Balls:GetDescendants() > 0 and Balls:GetDescendants()[1]) or (Balls.ChildAdded:Wait() and Balls:GetChildren()[1])
 
-    local BallVelocity = Ball.Velocity.Magnitude
+    game:GetService("Workspace").Balls.ChildAdded:Connect(function()
+        for _,v2 in pairs(Ball) do table.remove(Ball, _) end
+        for _,v in pairs(game:GetService("Workspace").Balls:GetChildren()) do
+            insert = true
+            for _,v2 in pairs(Ball) do if v2 == v.Name then insert = false end end
+            if insert then table.insert(Ball, v.Name) end
+        end
+        Refresh(Ball)
+    end)
+
+    game:GetService("Workspace").Balls.ChildRemoved:Connect(function()
+        for _,v2 in pairs(Ball) do table.remove(Ball, _) end
+        for _,v in pairs(game:GetService("Workspace").Balls:GetChildren()) do
+            insert = true
+            for _,v2 in pairs(Ball) do if v2 == v.Name then insert = false end end
+            if insert then table.insert(Ball, v.Name) end
+        end
+        Refresh(Ball)
+    end)
+
+    local BallVelocity = cachedBallVelocity
     local BallPosition = Ball.Position
 
     local PlayerPosition = Player.Character.HumanoidRootPart.Position
     local PlayerVelocity = Player.Character.HumanoidRootPart.Velocity.Magnitude
 
     local Distance = (BallPosition - PlayerPosition).Magnitude
-    local Adjustment = BallVelocity * (game.Stats.Network.ServerStatsItem["Data Ping"]:GetValue())
 
-    Distance = Distance - Adjustment
+    local LatencyAdjustedBallVelocity = CalculateLatencyAdjustedBallVelocity(Player)
+
+    -- Calculate the new Adjustment value
+    local NewAdjustment = LatencyAdjustedBallVelocity * (game.Stats.Network.ServerStatsItem["Data Ping"]:GetValue())
+
+    Distance = Distance - NewAdjustment
     Distance = Distance - shared.adjustment
 
     local Hit = 0.15 -- More accurate ball detection
 
     -- Consider the ball's direction and velocity
     if Ball.Velocity.Y > 0 then
-        Hit = Hit * 0.75
+        Hit = Hit * 0.1
     end
 
     if PlayerVelocity.Y > 0 then
-        Hit = Hit * 0.85
+        Hit = Hit * 0.1
     end
 
     -- Consider the player's ping
-    Hit = Hit * (1 - (game.Stats.Network.ServerStatsItem["Data Ping"]:GetValue() / 1000))
+    Hit = Hit * (1 - (game.Stats.Network.ServerStatsItem["Data Ping"].ChildAdded:Connect() / 1000))
 
-    return Hit <= Distance / BallVelocity
+    return Hit <= Distance / LatencyAdjustedBallVelocity
 end
+
+
 
 local function Target(Character)
     Character.ChildAdded:Connect(function(child)
@@ -181,12 +246,12 @@ local function CheckDistance()
         -- Continuously check for close combat
         if IsPlayerInCloseCombat() then
             -- Activate close combat mode with no delay
-            DeflectBall()
+            GetPlayerFacingDirection()
         elseif not IsTargeted or not DetectBall() then
             RemoteSpamming = false
             print("Stopped remote spam")
         else
-            DeflectBall()
+            GetPlayerFacingDirection()
         end
         wait(0) -- No change to the delay here
     end
@@ -243,7 +308,7 @@ Balls.ChildAdded:Connect(function(Ball)
 
     -- If the player is very close to the new ball when it spawns, immediately parry it
     if IsTarget() and DetectBall() and IsPlayerInCloseCombat() then
-        DeflectBall()
+        GetPlayerFacingDirection()
     end
 
     local OldPosition = Ball.Position
@@ -258,7 +323,7 @@ Balls.ChildAdded:Connect(function(Ball)
             print("Velocity: " .. Velocity)
             print("Time: " .. Distance / Velocity)
 
-            if (Distance / Velocity) <= 10 then
+            if (Distance / Velocity) <= 7 then
                 Parry()
             end
         end
