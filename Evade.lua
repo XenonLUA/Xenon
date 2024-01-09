@@ -395,9 +395,9 @@ player:AddToggle(
 	Callback = function(fastrev)
 		getgenv().far = fastrev
 		if getgenv().far then
-			workspace.Game.Settings:SetAttribute("ReviveTime", 1.25)
+			workspace.Game.Settings:SetAttribute("ReviveTime", 0.1)
 		else
-			workspace.Game.Settings:SetAttribute('ReviveTime', 3)
+			workspace.Game.Settings:SetAttribute('ReviveTime', 0.1)
 		end
 	end
 }
