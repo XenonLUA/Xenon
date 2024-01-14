@@ -1,4 +1,3 @@
-local players = game:GetService("Players")
 local localPlayer = players.LocalPlayer
 local UserInputService = game:GetService("UserInputService")
 local PlayerGui = localPlayer:WaitForChild("PlayerGui")
