@@ -125,7 +125,18 @@ local args = {
 
 game:GetService("ReplicatedStorage").Events.Hero.HeroAbility:FireServer(unpack(args))
 
-	    
+local args = {
+    [1] = workspace.UserPets:FindFirstChild("1116656080").Sparkle
+}
+
+game:GetService("ReplicatedStorage").Events.Hero.HeroAttack:FireServer(unpack(args))
+
+local args = {
+    [1] = workspace.UserPets:FindFirstChild("1116656080").Sparkle,
+    [2] = "02"
+}
+
+game:GetService("ReplicatedStorage").Events.Hero.HeroAbility:FireServer(unpack(args))
 	    end)
 	  end
 	end,
