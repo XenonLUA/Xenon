@@ -4,9 +4,7 @@ local UserInputService = game:GetService("UserInputService")
 local PlayerGui = localPlayer:WaitForChild("PlayerGui")
 
 --Values
-local selectedEgg = nill
-local isHatch = false
-
+getgenv().TPPlace = "string"
 
 local function isPlayerOnMobile()
     return UserInputService.TouchEnabled and not (UserInputService.KeyboardEnabled or UserInputService.GamepadEnabled)
@@ -61,13 +59,10 @@ local Window = Rayfield:CreateWindow({
 
 
 --function
-local Eggs = {
-    ["3K"] = Slot001,
-    ["3M"] = Slot002,
-    ["3B"] = Slot003,
-    ["3T"] = Slot004,
-}
-
+function Teleport(teleportPlace)
+    local player = game.Players.LocalPlayer
+    player.Character.HumanoidRootPart.CFrame = teleportPlace
+end
 
 
 --========================================== MAIN. =====================================================
@@ -136,33 +131,29 @@ game:GetService("ReplicatedStorage").Events.Hero.HeroAbility:FireServer(unpack(a
 	end,
 })
 
-local Dropdown = Tab:CreateDropdown({
-    Name = "Select",
-    Options = {"3K","3M","3B","3T"},
-    CurrentOption = {"150"},
-    MultipleOptions = false,
-    Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Option)
-      selectedEgg = Eggs[Option]
-      print(selectedEgg)
-    end,
- })
- 
- local Toggle = Tab:CreateToggle({
-    Name = "Start Machine",
+Tab:CreateDropdown({
+	Name = "Selected Zone",
+	Default = "World 1",
+	Options = {"World 1", "World 2", "World 3", "World 4"},
+	Callback = function(Value)
+	  getgenv().TPPlace = Value
+		print(Value)
+	end
+})
+
+local Button = Tab:CreateButton({
+    Name = "Teleport",
     CurrentValue = false,
-    Flag = "Toggle3", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Flag = "Button1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Value)
-      isHatch = Value
-      while isHatch do
-      if selectedEgg then
-        local args = {
-            [1] = selectedEgg
-        }
-        
-        game:GetService("ReplicatedStorage").Events.Stats.ClaimSlot:InvokeServer(unpack(args))
-      end
-      wait()
-      end
-    end
+     if getgenv().TPPlace == "World 1" then
+        Teleport(game:GetService("Workspace").Teleport.World001.CFrame)
+     elseif getgenv().TPPlace == "World 2" then
+        Teleport(game:GetService("Workspace").Teleport.World002.CFrame)
+        elseif getgenv().TPPlace == "World 3" then
+            Teleport(game:GetService("Workspace").Teleport.World003.CFrame)
+        elseif getgenv().TPPlace == "World 4" then
+            Teleport(game:GetService("Workspace").Teleport.World004.CFrame)
+     end
+     end,
  })
