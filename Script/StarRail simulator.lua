@@ -62,10 +62,10 @@ local Window = Rayfield:CreateWindow({
 
 --function
 local Eggs = {
-    ["150"] = Draw001,
-    ["150K"] = Draw002,
-    ["150M"] = Draw003,
-    ["150B"] = Draw004,
+    ["3K"] = Slot001,
+    ["3M"] = Slot002,
+    ["3B"] = Slot003,
+    ["3T"] = Slot004,
 }
 
 
@@ -137,8 +137,8 @@ game:GetService("ReplicatedStorage").Events.Hero.HeroAbility:FireServer(unpack(a
 })
 
 local Dropdown = Tab:CreateDropdown({
-    Name = "Dropdown Example",
-    Options = {"150","150K","150M","150B"},
+    Name = "Select",
+    Options = {"3K","3M","3B","3T"},
     CurrentOption = {"150"},
     MultipleOptions = false,
     Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -149,7 +149,7 @@ local Dropdown = Tab:CreateDropdown({
  })
  
  local Toggle = Tab:CreateToggle({
-    Name = "Start Egg",
+    Name = "Start Machine",
     CurrentValue = false,
     Flag = "Toggle3", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Value)
@@ -157,12 +157,10 @@ local Dropdown = Tab:CreateDropdown({
       while isHatch do
       if selectedEgg then
         local args = {
-            [1] = "Hatch",
-            [2] = selectedEgg,
-            [3] = {}
+            [1] = selectedEgg
         }
         
-        game:GetService("ReplicatedStorage").Events.Pets.Re_Draw:FireServer(unpack(args))
+        game:GetService("ReplicatedStorage").Events.Stats.ClaimSlot:InvokeServer(unpack(args))
       end
       wait()
       end
