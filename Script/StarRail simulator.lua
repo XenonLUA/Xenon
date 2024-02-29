@@ -156,7 +156,7 @@ local Button = Tab:CreateButton({
     Name = "Teleport",
     CurrentValue = false,
     Flag = "Button1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Value)
+    Callback = function()
      if getgenv().TPPlace == "World 1" then
         Teleport(game:GetService("Workspace").Teleport.World001.CFrame)
      elseif getgenv().TPPlace == "World 2" then
