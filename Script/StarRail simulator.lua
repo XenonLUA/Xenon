@@ -1,11 +1,18 @@
 local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
 	
-	local PhantomForcesWindow = Library:NewWindow("Anime Infinity")
+	local PhantomForcesWindow = Library:NewWindow("StarRail Sim")
 	local x = PhantomForcesWindow:NewSection("Main")
 	
-	--FUNCTION
+--Values
 _G.pet = false
 getgenv().TPPlace = "string"
+
+--function
+
+function Teleport(teleportPlace)
+    local player = game.Players.LocalPlayer
+    player.Character.HumanoidRootPart.CFrame = teleportPlace
+end
 
 function pet()
     while _G.pet do task.wait()
