@@ -80,14 +80,21 @@ end
         potion()
 		end)
 	
+local slot = {
+    "Slot001",
+    "Slot002",
+    "Slot003",
+    "Slot004",
+    "Slot005",
+}
+
 	x:CreateToggle("Auto SlotMachine", function(Value)
 	slot = Value 
-	while slot do task.wait(100)
+	while slot do task.wait(10)
 	  pcall(function()
-        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimSlot"):InvokeServer("Slot001")
-        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimSlot"):InvokeServer("Slot002")
-        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimSlot"):InvokeServer("Slot003")
-        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimSlot"):InvokeServer("Slot004")
+        for i,v in (slot) do
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimSlot"):InvokeServer(v)
+            end
 	    end)
 	  end
 	end)
