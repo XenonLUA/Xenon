@@ -22,13 +22,6 @@ local args = {
 
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Hero"):WaitForChild("HeroAttack"):FireServer(unpack(args))
 
-local args = {
-    [1] = workspace:WaitForChild("UserPets"):WaitForChild("1116656080"):WaitForChild("Blade"),
-    [2] = "EnemyEffect"
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Hero"):WaitForChild("HeroAbility"):FireServer(unpack(args))
-
 
 local args = {
     [1] = workspace:WaitForChild("UserPets"):WaitForChild("1116656080"):WaitForChild("Blade"),
@@ -47,13 +40,6 @@ game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Hero")
 local args = {
     [1] = workspace:WaitForChild("UserPets"):WaitForChild("1116656080"):WaitForChild("March 7th"),
     [2] = "03-Emit"
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Hero"):WaitForChild("HeroAbility"):FireServer(unpack(args))
-
-local args = {
-    [1] = workspace:WaitForChild("UserPets"):WaitForChild("1116656080"):WaitForChild("March 7th"),
-    [2] = "06-RabbitFly"
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Hero"):WaitForChild("HeroAbility"):FireServer(unpack(args))
