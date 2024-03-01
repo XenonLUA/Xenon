@@ -16,7 +16,49 @@ end
 
 function pet()
     while _G.pet do task.wait()
-        game:GetService("ReplicatedStorage").Events.Hero.HeroAbility:FireServer(workspace.UserPets["1116656080"]["Pom-Pom"],"05-Emit")
+local args = {
+    [1] = workspace:WaitForChild("UserPets"):WaitForChild("1116656080"):WaitForChild("Blade")
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Hero"):WaitForChild("HeroAttack"):FireServer(unpack(args))
+
+local args = {
+    [1] = workspace:WaitForChild("UserPets"):WaitForChild("1116656080"):WaitForChild("Blade"),
+    [2] = "EnemyEffect"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Hero"):WaitForChild("HeroAbility"):FireServer(unpack(args))
+
+
+local args = {
+    [1] = workspace:WaitForChild("UserPets"):WaitForChild("1116656080"):WaitForChild("Blade"),
+    [2] = "Damage01"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Hero"):WaitForChild("HeroAbility"):FireServer(unpack(args))
+
+		
+local args = {
+    [1] = workspace:WaitForChild("UserPets"):WaitForChild("1116656080"):WaitForChild("March 7th")
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Hero"):WaitForChild("HeroAttack"):FireServer(unpack(args))
+
+local args = {
+    [1] = workspace:WaitForChild("UserPets"):WaitForChild("1116656080"):WaitForChild("March 7th"),
+    [2] = "03-Emit"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Hero"):WaitForChild("HeroAbility"):FireServer(unpack(args))
+
+local args = {
+    [1] = workspace:WaitForChild("UserPets"):WaitForChild("1116656080"):WaitForChild("March 7th"),
+    [2] = "06-RabbitFly"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Hero"):WaitForChild("HeroAbility"):FireServer(unpack(args))
+
+game:GetService("ReplicatedStorage").Events.Hero.HeroAbility:FireServer(workspace.UserPets["1116656080"]["Pom-Pom"],"05-Emit")
 	    
 game:GetService("ReplicatedStorage").Events.Hero.HeroAttack:FireServer(workspace.UserPets["1116656080"]["Pom-Pom"])
 
