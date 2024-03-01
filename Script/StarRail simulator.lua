@@ -1,6 +1,6 @@
 local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
 	
-	local PhantomForcesWindow = Library:NewWindow("StarRail Sim")
+	local PhantomForcesWindow = Library:NewWindow("StarRail")
 	local x = PhantomForcesWindow:NewSection("Main")
 	
 --Values
