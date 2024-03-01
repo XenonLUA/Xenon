@@ -1,50 +1,34 @@
 local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
 	
-	local PhantomForcesWindow = Library:NewWindow("StarRail")
+	local PhantomForcesWindow = Library:NewWindow("Anime Infinity")
 	local x = PhantomForcesWindow:NewSection("Main")
 	
 --Values
 _G.pet = false
 getgenv().TPPlace = "string"
 
+getgenv().potion = false
 --function
 
 function Teleport(teleportPlace)
     local player = game.Players.LocalPlayer
     player.Character.HumanoidRootPart.CFrame = teleportPlace
 end
-
+function potion()
+    while getgenv().potion do task.wait()
+    local playerhead = game.Players.LocalPlayer.Character.Head
+        for i,v in pairs(game:GetService("Workspace").Machines["扭蛋机"]:GetDescendants()) do
+        if v.Name == "TouchInterest" and v.Parent then
+            firetouchinterest(playerhead, v.Parent, 0)
+            wait(0.01)
+            firetouchinterest(playerhead, v.Parent, 1)
+            end
+        end
+    end
+end
 function pet()
     while _G.pet do task.wait()
-local args = {
-    [1] = workspace:WaitForChild("UserPets"):WaitForChild("1116656080"):WaitForChild("Blade")
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Hero"):WaitForChild("HeroAttack"):FireServer(unpack(args))
-
-
-local args = {
-    [1] = workspace:WaitForChild("UserPets"):WaitForChild("1116656080"):WaitForChild("Blade"),
-    [2] = "Damage01"
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Hero"):WaitForChild("HeroAbility"):FireServer(unpack(args))
-
-		
-local args = {
-    [1] = workspace:WaitForChild("UserPets"):WaitForChild("1116656080"):WaitForChild("March 7th")
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Hero"):WaitForChild("HeroAttack"):FireServer(unpack(args))
-
-local args = {
-    [1] = workspace:WaitForChild("UserPets"):WaitForChild("1116656080"):WaitForChild("March 7th"),
-    [2] = "03-Emit"
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Hero"):WaitForChild("HeroAbility"):FireServer(unpack(args))
-
-game:GetService("ReplicatedStorage").Events.Hero.HeroAbility:FireServer(workspace.UserPets["1116656080"]["Pom-Pom"],"05-Emit")
+        game:GetService("ReplicatedStorage").Events.Hero.HeroAbility:FireServer(workspace.UserPets["1116656080"]["Pom-Pom"],"05-Emit")
 	    
 game:GetService("ReplicatedStorage").Events.Hero.HeroAttack:FireServer(workspace.UserPets["1116656080"]["Pom-Pom"])
 
@@ -91,12 +75,9 @@ game:GetService("ReplicatedStorage").Events.Hero.HeroAbility:FireServer(unpack(a
 end
 
     --Main
-	x:CreateButton("Claim Potion", function()
-        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimGacha"):FireServer("Gacha001")
-        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimGacha"):FireServer("Gacha002")
-        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimGacha"):FireServer("Gacha003")
-        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimGacha"):FireServer("Gacha004")
-        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimGacha"):FireServer("Gacha005")
+	x:CreateToggle("Claim Potion", function(value)
+        getgenv().potion = value
+        potion()
 		end)
 	
 	x:CreateToggle("Auto SlotMachine", function(Value)
