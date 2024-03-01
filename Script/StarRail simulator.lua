@@ -1,100 +1,15 @@
-local players = game:GetService("Players")
-local localPlayer = players.LocalPlayer
-local UserInputService = game:GetService("UserInputService")
-local PlayerGui = localPlayer:WaitForChild("PlayerGui")
-
---Values
+local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
+	
+	local PhantomForcesWindow = Library:NewWindow("Anime Infinity")
+	local x = PhantomForcesWindow:NewSection("Main")
+	
+	--FUNCTION
+_G.pet = false
 getgenv().TPPlace = "string"
 
-local function isPlayerOnMobile()
-    return UserInputService.TouchEnabled and not (UserInputService.KeyboardEnabled or UserInputService.GamepadEnabled)
-end
-
-local RayfieldURL = isPlayerOnMobile() and 
-                    'https://raw.githubusercontent.com/XenonLUA/Xenon/main/Xenon.lua' or 
-                    'https://sirius.menu/rayfield'
-
-local Rayfield = loadstring(game:HttpGet(RayfieldURL))()
-
-local notifs =
-    loadstring(
-    game:HttpGet("https://raw.githubusercontent.com/Jxereas/UI-Libraries/main/notification_gui_library.lua", true)
-)()
-local changelog = game:HttpGet("https://raw.githubusercontent.com/CF-Trail/random/main/.x.vr.e.hi/misc/clogevade.lua")
-local esp =
-    loadstring(
-    game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/SimpleHighlightESP.lua")
-)()
-
-if rconsoleprint then
-	rconsoleprint(changelog)
-end
-
-
-local Window = Rayfield:CreateWindow({
-   Name = "Xenon HUB",
-   LoadingTitle = "Xenon",
-   LoadingSubtitle = "by Xenon",
-   ConfigurationSaving = {
-      Enabled = false,
-      FolderName = "Xenon",
-      FileName = "Xenon"
-   },
-   Discord = {
-      Enabled = true,
-      Invite = "hNX8VxcjMF",
-      RememberJoins = true
-   },
-   KeySystem = false,
-   KeySettings = {
-      Title = "Xenon",
-      Subtitle = "Key System",
-      Note = "Join the discord (discord.gg/hNX8VxcjMF)",
-      FileName = "Xenon",
-      SaveKey = true,
-      GrabKeyFromSite = false,
-      Key = "Hello"
-   }
-})
-
-
---function
-function Teleport(teleportPlace)
-    local player = game.Players.LocalPlayer
-    player.Character.HumanoidRootPart.CFrame = teleportPlace
-end
-
-
---========================================== MAIN. =====================================================
-
-local Tab = Window:CreateTab("Main", 4483362458) -- Title, Image
-
-local Section = Tab:CreateSection("Main")
-
-local Toggle = Tab:CreateToggle({
-   Name = "Auto Power",
-   CurrentValue = false,
-   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-    a = Value 
-	while a do task.wait()
-	  pcall(function()
-	    game:GetService("ReplicatedStorage").Events.Fight.ClickDamage:FireServer()
-	    end)
-	  end
-	end,
-})
-
-
-local Toggle = Tab:CreateToggle({
-   Name = "Auto Ability & Attack Pet",
-   CurrentValue = false,
-   Flag = "Toggle2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-    b = Value 
-	while b do task.wait()
-	  pcall(function()
-	    game:GetService("ReplicatedStorage").Events.Hero.HeroAbility:FireServer(workspace.UserPets["1116656080"]["Pom-Pom"],"05-Emit")
+function pet()
+    while _G.pet do task.wait()
+        game:GetService("ReplicatedStorage").Events.Hero.HeroAbility:FireServer(workspace.UserPets["1116656080"]["Pom-Pom"],"05-Emit")
 	    
 game:GetService("ReplicatedStorage").Events.Hero.HeroAttack:FireServer(workspace.UserPets["1116656080"]["Pom-Pom"])
 
@@ -137,34 +52,74 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage").Events.Hero.HeroAbility:FireServer(unpack(args))
+    end
+end
+
+    --Main
+	x:CreateButton("Claim Potion", function()
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimGacha"):FireServer("Gacha001")
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimGacha"):FireServer("Gacha002")
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimGacha"):FireServer("Gacha003")
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimGacha"):FireServer("Gacha004")
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimGacha"):FireServer("Gacha005")
+		end)
+	
+	x:CreateToggle("Auto SlotMachine", function(Value)
+	slot = Value 
+	while slot do task.wait(100)
+	  pcall(function()
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimSlot"):InvokeServer("Slot001")
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimSlot"):InvokeServer("Slot002")
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimSlot"):InvokeServer("Slot003")
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("ClaimSlot"):InvokeServer("Slot004")
 	    end)
 	  end
-	end,
-})
-
-Tab:CreateDropdown({
-	Name = "Selected Zone",
-	Default = "World 1",
-	Options = {"World 1", "World 2", "World 3", "World 4"},
-	Callback = function(Value)
-	  getgenv().TPPlace = Value
-		print(Value)
+	end)
+	
+	--[[x:CreateToggle("Auto Collect", function(Value)
+	c = Value 
+	while c do
+	  pcall(function() 
+	    local playerhead = game.Players.LocalPlayer.Character.Head
+for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+  if v.Name == "TouchInterest" and v.Parent then
+    firetouchinterest(playerhead, v.Parent, 0)
+    wait(0.01)
+    firetouchinterest(playerhead, v.Parent, 1)
+    
+    end
+end
+end)
 	end
-})
+  wait()
+	end)]]
+	
+	x:CreateToggle("Auto Power", function(Value)
+	a = Value 
+	while a do task.wait()
+	  pcall(function()
+        game:GetService("ReplicatedStorage").Events.Fight.ClickDamage:FireServer()
+	    end)
+	  end
+	end)
+    
+    x:CreateToggle("Auto Ability Pet", function(value)
+        _G.pet = value
+        pet()
+        end)
 
-local Button = Tab:CreateButton({
-    Name = "Teleport",
-    CurrentValue = false,
-    Flag = "Button1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function()
-     if getgenv().TPPlace == "World 1" then
-        Teleport(game:GetService("Workspace").Teleport.World001.CFrame)
-     elseif getgenv().TPPlace == "World 2" then
-        Teleport(game:GetService("Workspace").Teleport.World002.CFrame)
-        elseif getgenv().TPPlace == "World 3" then
-            Teleport(game:GetService("Workspace").Teleport.World003.CFrame)
-        elseif getgenv().TPPlace == "World 4" then
-            Teleport(game:GetService("Workspace").Teleport.World004.CFrame)
-     end
-     end,
- })
+    x:CreateDropdown("Zone", {"World 1", "World 2", "World 3", "World 4"}, 1, function(value)
+         getgenv().TPPlace = value
+    end)
+
+    x:CreateButton("Teleport", function()
+        if getgenv().TPPlace == "World 1" then
+            Teleport(game:GetService("Workspace").Teleport.World001.CFrame)
+         elseif getgenv().TPPlace == "World 2" then
+            Teleport(game:GetService("Workspace").Teleport.World002.CFrame)
+            elseif getgenv().TPPlace == "World 3" then
+                Teleport(game:GetService("Workspace").Teleport.World003.CFrame)
+            elseif getgenv().TPPlace == "World 4" then
+                Teleport(game:GetService("Workspace").Teleport.World004.CFrame)
+         end
+    end)
