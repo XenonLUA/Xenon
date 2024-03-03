@@ -4,7 +4,7 @@ local RunService = game:GetService("RunService")
 local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
 	
 	local PhantomForcesWindow = Library:NewWindow("NightLight")
-	local x = PhantomForcesWindow:NewSection("Main")
+	local x = PhantomForcesWindow:NewSection("ESP")
 
     --values
 lp = Players.LocalPlayer
@@ -45,6 +45,8 @@ local function moveto(obj, speed)
         noclipE:Disconnect()
     end)
 end
+
+
     
 x:CreateButton("ESP NOTE", function()
   RunService.RenderStepped:Connect(function()
@@ -81,6 +83,78 @@ x:CreateButton("ESP NOTE", function()
 end)
 end)
 
+x:CreateButton("ESP Matches", function()
+  RunService.RenderStepped:Connect(function()
+    for i,v in pairs(game:GetService("Workspace").Matches:GetChildren()) do
+        if not v:FindFirstChild("ESP") then
+    local BillboardGui = Instance.new("BillboardGui")
+    local TextLabel = Instance.new("TextLabel")
+
+
+    BillboardGui.Parent = v
+    BillboardGui.Active = true
+    BillboardGui.AlwaysOnTop = true
+    BillboardGui.LightInfluence = 1.000
+    BillboardGui.Size = UDim2.new(5, 0, 5, 0)
+    BillboardGui.StudsOffset = Vector3.new(0, 1, 0)
+    BillboardGui.Name = "ESP"
+
+    TextLabel.Parent = BillboardGui
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 1.000
+    TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel.BorderSizePixel = 0
+    TextLabel.Size = UDim2.new(1, 0, 1, 0)
+    TextLabel.ZIndex = 10
+    TextLabel.Font = Enum.Font.Arial
+    TextLabel.Text = v.Name
+    TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+    TextLabel.TextScaled = true
+    TextLabel.TextSize = 20.000
+    TextLabel.TextWrapped = true
+    TextLabel.Name = "Text"
+        end
+    end
+end)
+end)
+
+x:CreateButton("ESP Coin", function()
+  RunService.RenderStepped:Connect(function()
+    for i,v in pairs(game:GetService("Workspace").House.Coins:GetChildren()) do
+        if not v:FindFirstChild("ESP") then
+    local BillboardGui = Instance.new("BillboardGui")
+    local TextLabel = Instance.new("TextLabel")
+
+
+    BillboardGui.Parent = v
+    BillboardGui.Active = true
+    BillboardGui.AlwaysOnTop = true
+    BillboardGui.LightInfluence = 1.000
+    BillboardGui.Size = UDim2.new(5, 0, 5, 0)
+    BillboardGui.StudsOffset = Vector3.new(0, 1, 0)
+    BillboardGui.Name = "ESP"
+
+    TextLabel.Parent = BillboardGui
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 1.000
+    TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel.BorderSizePixel = 0
+    TextLabel.Size = UDim2.new(1, 0, 1, 0)
+    TextLabel.ZIndex = 10
+    TextLabel.Font = Enum.Font.Arial
+    TextLabel.Text = v.Name
+    TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+    TextLabel.TextScaled = true
+    TextLabel.TextSize = 20.000
+    TextLabel.TextWrapped = true
+    TextLabel.Name = "Text"
+        end
+    end
+end)
+end)
+
+local x = PhantomForcesWindow:NewSection("Main")
+
 x:CreateButton("Brighnes", function()
   Game.Lighting.Brightness = 1
 	Game.Lighting.FogEnd = 100000
@@ -100,8 +174,6 @@ end)
 x:CreateButton("Exit Door", function()
     Teleport(game:GetService("Workspace").Spawn.CFrame)
 end)
-
-local x = PhantomForcesWindow:NewSection("Teleport")
 
 x:CreateDropdown("Notes", {"::NOTES::","Note 1", "Note 2", "Note 3" , "Note 4", "Note 5", "Note 6", "Note 7", "Note 8"}, 1, function(value)
   getgenv().TPPlace = value
