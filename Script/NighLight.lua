@@ -81,6 +81,28 @@ x:CreateButton("ESP NOTE", function()
 end)
 end)
 
+x:CreateButton("Brighnes", function()
+  Game.Lighting.Brightness = 1
+	Game.Lighting.FogEnd = 100000
+	Game.Lighting.GlobalShadows = false
+    Game.Lighting.ClockTime = 12
+end)
+
+x:CreateButton("Matches", function()
+  hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+    			for i, v in next, workspace.Matches:GetChildren() do
+    				if v.IsA(v, "Model") then
+    					hrp.CFrame = CFrame.new(v:FindFirstChild("Part").Position)
+    				end
+    			end
+end)
+
+x:CreateButton("Exit Door", function()
+    Teleport(game:GetService("Workspace").Spawn.CFrame)
+end)
+
+local x = PhantomForcesWindow:NewSection("Teleport")
+
 x:CreateDropdown("Notes", {"::NOTES::","Note 1", "Note 2", "Note 3" , "Note 4", "Note 5", "Note 6", "Note 7", "Note 8"}, 1, function(value)
   getgenv().TPPlace = value
 end)
@@ -106,26 +128,6 @@ x:CreateToggle("Teleport", function()
           Teleport(game:GetService("Workspace").Notes.Note8.CFrame)
    end
   end
-end)
-
-x:CreateButton("Brighnes", function()
-  Game.Lighting.Brightness = 1
-	Game.Lighting.FogEnd = 100000
-	Game.Lighting.GlobalShadows = false
-    Game.Lighting.ClockTime = 12
-end)
-
-x:CreateButton("Matches", function()
-  hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-    			for i, v in next, workspace.Matches:GetChildren() do
-    				if v.IsA(v, "Model") then
-    					hrp.CFrame = CFrame.new(v:FindFirstChild("Part").Position)
-    				end
-    			end
-end)
-
-x:CreateButton("Exit Door", function()
-    Teleport(game:GetService("Workspace").Spawn.CFrame)
 end)
 
 local x = PhantomForcesWindow:NewSection("XENON HUB")
