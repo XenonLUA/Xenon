@@ -49,108 +49,174 @@ end
 
     
 x:CreateButton("ESP NOTE", function()
-  RunService.RenderStepped:Connect(function()
-    for i,v in pairs(game:GetService("Workspace").Notes:GetChildren()) do
-        if not v:FindFirstChild("ESP") then
-    local BillboardGui = Instance.new("BillboardGui")
-    local TextLabel = Instance.new("TextLabel")
+  -- loadstring
+local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/XenonLUA/Xenon/main/Script/ESP%20XENON.lua"))()
+ 
+-- config
+ESP.Players = false
+ESP.Boxes = false
+ESP.Names = true
+ESP:Toggle(true)
 
+ 
+-- object
+ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
+    Name = "Note1", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+    CustomName = "Note 1", -- Name you want to be displayed
+    Color = Color3.fromRGB(0, 255, 0), -- Color
+    IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+})
 
-    BillboardGui.Parent = v
-    BillboardGui.Active = true
-    BillboardGui.AlwaysOnTop = true
-    BillboardGui.LightInfluence = 1.000
-    BillboardGui.Size = UDim2.new(5, 0, 5, 0)
-    BillboardGui.StudsOffset = Vector3.new(0, 1, 0)
-    BillboardGui.Name = "ESP"
+ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
+    Name = "Note2", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+    CustomName = "Note 2", -- Name you want to be displayed
+    Color = Color3.fromRGB(0, 255, 0), -- Color
+    IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+})
 
-    TextLabel.Parent = BillboardGui
-    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextLabel.BackgroundTransparency = 1.000
-    TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    TextLabel.BorderSizePixel = 0
-    TextLabel.Size = UDim2.new(1, 0, 1, 0)
-    TextLabel.ZIndex = 10
-    TextLabel.Font = Enum.Font.Arial
-    TextLabel.Text = v.Name
-    TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
-    TextLabel.TextScaled = true
-    TextLabel.TextSize = 20.000
-    TextLabel.TextWrapped = true
-    TextLabel.Name = "Text"
-        end
-    end
-end)
+ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
+    Name = "Note3", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+    CustomName = "Note 3", -- Name you want to be displayed
+    Color = Color3.fromRGB(0, 255, 0), -- Color
+    IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+})
+
+ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
+    Name = "Note4", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+    CustomName = "Note 4", -- Name you want to be displayed
+    Color = Color3.fromRGB(0, 255, 0), -- Color
+    IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+})
+
+ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
+    Name = "Note5", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+    CustomName = "Note 5", -- Name you want to be displayed
+    Color = Color3.fromRGB(0, 255, 0), -- Color
+    IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+})
+
+ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
+    Name = "Note6", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+    CustomName = "Note 6", -- Name you want to be displayed
+    Color = Color3.fromRGB(0, 255, 0), -- Color
+    IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+})
+
+ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
+    Name = "Note7", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+    CustomName = "Note 7", -- Name you want to be displayed
+    Color = Color3.fromRGB(0, 255, 0), -- Color
+    IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+})
+
+ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
+    Name = "Note8", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+    CustomName = "Note 8", -- Name you want to be displayed
+    Color = Color3.fromRGB(0, 255, 0), -- Color
+    IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+})
+
+ESP.whatever = true
 end)
 
 x:CreateButton("ESP Matches", function()
-  RunService.RenderStepped:Connect(function()
-    for i,v in pairs(game:GetService("Workspace").Matches:GetChildren()) do
-        if not v:FindFirstChild("ESP") then
-    local BillboardGui = Instance.new("BillboardGui")
-    local TextLabel = Instance.new("TextLabel")
+  -- loadstring
+local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/XenonLUA/Xenon/main/Script/ESP%20XENON.lua"))()
+ 
+-- config
+ESP.Players = false
+ESP.Boxes = false
+ESP.Names = true
+ESP:Toggle(true)
 
+ 
+-- object
+ESP:AddObjectListener(Workspace.Matches, { -- Object Path, For example: Workspace.ThisFolder
+    Name = "Match", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+    CustomName = "Matches", -- Name you want to be displayed
+    Color = Color3.fromRGB(255, 0, 0), -- Color
+    IsEnabled = "match" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+})
 
-    BillboardGui.Parent = v
-    BillboardGui.Active = true
-    BillboardGui.AlwaysOnTop = true
-    BillboardGui.LightInfluence = 1.000
-    BillboardGui.Size = UDim2.new(5, 0, 5, 0)
-    BillboardGui.StudsOffset = Vector3.new(0, 1, 0)
-    BillboardGui.Name = "ESP"
-
-    TextLabel.Parent = BillboardGui
-    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextLabel.BackgroundTransparency = 1.000
-    TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    TextLabel.BorderSizePixel = 0
-    TextLabel.Size = UDim2.new(1, 0, 1, 0)
-    TextLabel.ZIndex = 10
-    TextLabel.Font = Enum.Font.Arial
-    TextLabel.Text = v.Name
-    TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
-    TextLabel.TextScaled = true
-    TextLabel.TextSize = 20.000
-    TextLabel.TextWrapped = true
-    TextLabel.Name = "Text"
-        end
-    end
-end)
+ESP.match = true
 end)
 
 x:CreateButton("ESP Coin", function()
-  RunService.RenderStepped:Connect(function()
-    for i,v in pairs(game:GetService("Workspace").House.Coins:GetChildren()) do
-        if not v:FindFirstChild("ESP") then
-    local BillboardGui = Instance.new("BillboardGui")
-    local TextLabel = Instance.new("TextLabel")
+  local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/XenonLUA/Xenon/main/Script/ESP%20XENON.lua"))()
+ 
+-- config
+ESP.Players = false
+ESP.Boxes = false
+ESP.Names = true
+ESP:Toggle(true)
 
+ 
+-- object
+ESP:AddObjectListener(Workspace.House.Coins, { -- Object Path, For example: Workspace.ThisFolder
+    Name = "Coin_2", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+    CustomName = "Matches", -- Name you want to be displayed
+    Color = Color3.fromRGB(212, 166, 65), -- Color
+    IsEnabled = "match" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+})
 
-    BillboardGui.Parent = v
-    BillboardGui.Active = true
-    BillboardGui.AlwaysOnTop = true
-    BillboardGui.LightInfluence = 1.000
-    BillboardGui.Size = UDim2.new(5, 0, 5, 0)
-    BillboardGui.StudsOffset = Vector3.new(0, 1, 0)
-    BillboardGui.Name = "ESP"
+ESP:AddObjectListener(Workspace.House.Coins, { -- Object Path, For example: Workspace.ThisFolder
+    Name = "Coin_5", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+    CustomName = "Coins", -- Name you want to be displayed
+    Color = Color3.fromRGB(212, 166, 65), -- Color
+    IsEnabled = "c" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+})
 
-    TextLabel.Parent = BillboardGui
-    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextLabel.BackgroundTransparency = 1.000
-    TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    TextLabel.BorderSizePixel = 0
-    TextLabel.Size = UDim2.new(1, 0, 1, 0)
-    TextLabel.ZIndex = 10
-    TextLabel.Font = Enum.Font.Arial
-    TextLabel.Text = v.Name
-    TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
-    TextLabel.TextScaled = true
-    TextLabel.TextSize = 20.000
-    TextLabel.TextWrapped = true
-    TextLabel.Name = "Text"
-        end
-    end
+ESP.c = true
 end)
+
+x:CreateButton("ESP Bot", function()
+  local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/XenonLUA/Xenon/main/Script/ESP%20XENON.lua"))()
+ 
+-- config
+ESP.Players = false
+ESP.Boxes = false
+ESP.Names = true
+ESP:Toggle(true)
+
+ 
+-- object
+ESP:AddObjectListener(Workspace, { -- Object Path, For example: Workspace.ThisFolder
+    Name = "Beta", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+    CustomName = "Beta", -- Name you want to be displayed
+    Color = Color3.fromRGB(212, 0, 0), -- Color
+    IsEnabled = "bot" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+})
+
+ESP:AddObjectListener(Workspace, { -- Object Path, For example: Workspace.ThisFolder
+    Name = "Midnight", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+    CustomName = "Midnight", -- Name you want to be displayed
+    Color = Color3.fromRGB(212, 0, 0), -- Color
+    IsEnabled = "bot" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+})
+
+ESP:AddObjectListener(Workspace, { -- Object Path, For example: Workspace.ThisFolder
+    Name = "GreenMan", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+    CustomName = "GreenMan", -- Name you want to be displayed
+    Color = Color3.fromRGB(212, 0, 0), -- Color
+    IsEnabled = "bot" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+})
+
+ESP:AddObjectListener(Workspace, { -- Object Path, For example: Workspace.ThisFolder
+    Name = "Jumpscare1", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+    CustomName = "Jumpscare", -- Name you want to be displayed
+    Color = Color3.fromRGB(212, 0, 0), -- Color
+    IsEnabled = "bot" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+})
+
+ESP:AddObjectListener(Workspace, { -- Object Path, For example: Workspace.ThisFolder
+    Name = "Lights", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+    CustomName = "Lights", -- Name you want to be displayed
+    Color = Color3.fromRGB(212, 0, 0), -- Color
+    IsEnabled = "bot" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+})
+
+
+ESP.bot = true
 end)
 
 local x = PhantomForcesWindow:NewSection("Main")
