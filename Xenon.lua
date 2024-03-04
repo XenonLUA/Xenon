@@ -2314,7 +2314,7 @@ function ArrayFieldLibrary:CreateWindow(Settings)
 				end
 
 				if IsSelected then
-					DropdownOption.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+					DropdownOption.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
 				end
 
 				if Dropdown.Visible then
@@ -2330,7 +2330,7 @@ function ArrayFieldLibrary:CreateWindow(Settings)
 				DropdownOption.Interact.ZIndex = 50
 				DropdownOption.Interact.MouseButton1Click:Connect(function()
 					if DropdownSettings.Locked then return end
-					if DropdownOption.BackgroundColor3 == Color3.fromRGB(30, 30, 30) then OptionInTable.Selected = false else OptionInTable.Selected = true end
+					if DropdownOption.BackgroundColor3 == Color3.fromRGB(255, 0, 0) then OptionInTable.Selected = false else OptionInTable.Selected = true end
 					if OptionInTable.Selected then
 						OptionInTable.Selected = false
 						table.remove(DropdownSettings.Items.Selected,table.find(DropdownSettings.Items.Selected,OptionInTable))
@@ -2342,14 +2342,14 @@ function ArrayFieldLibrary:CreateWindow(Settings)
 							print("ArrayField | "..DropdownSettings.Name.." Callback Error " ..tostring(Response))
 						end
 						RefreshSelected()
-						TweenService:Create(DropdownOption, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(30, 30, 30)}):Play()
+						TweenService:Create(DropdownOption, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(255, 0, 0)}):Play()
 						SaveConfiguration()
 						return
 					end
 					if not Multi and DropdownSettings.Items.Selected[1] then
 						DropdownSettings.Items.Selected[1].Selected = false
 						if typeof(DropdownSettings.Items.Selected[1]["Option"]) == "Instance" then
-							TweenService:Create(DropdownSettings.Items.Selected[1].Option, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(30, 30, 30)}):Play()
+							TweenService:Create(DropdownSettings.Items.Selected[1].Option, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(255, 0, 0)}):Play()
 						end
 					end
 					if not (Multi) then
