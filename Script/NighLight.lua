@@ -1,279 +1,346 @@
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+
+local Window = Fluent:CreateWindow({
+    Title = "NightLight" .. Fluent.Version,
+    SubTitle = "by Xenon",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(580, 460),
+    Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
+    Theme = "Dark",
+    MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
+})
+
+--Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
+local Tabs = {
+    Main = Window:AddTab({ Title = "Main", Icon = "" }),
+    Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
+}
+
+local Options = Fluent.Options
 local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-
-local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-	
-	local PhantomForcesWindow = Library:NewWindow("NightLight")
-	local x = PhantomForcesWindow:NewSection("ESP")
-
-    --values
 lp = Players.LocalPlayer
+
+--Functions
+
 getgenv().TPPlace = "string"
-    --function
     function Teleport(teleportPlace)
       local player = game.Players.LocalPlayer
       player.Character.HumanoidRootPart.CFrame = teleportPlace
   end
-    --main
-    
-    local TweenService  = game:GetService("TweenService")
-local noclipE       = false
-local antifall      = false
- 
-local function noclip()
-    for i, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-        if v:IsA("BasePart") and v.CanCollide == true then
-            v.CanCollide = false
-            game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
+
+
+do
+    Fluent:Notify({
+        Title = "Notification",
+        Content = "This is a notification",
+        SubContent = "XENON HUB", -- Optional
+        Duration = 5 -- Set to nil to make the notification not disappear
+    })
+
+
+    Tabs.Main:AddParagraph({
+        Title = "WalkSpeed",
+        Content = "Default WalkSpeed 16.\nInput you WalkSpeed!"
+    })
+
+    local walkSpeedValue = 16
+    local Input = Tabs.Main:AddInput("Input", {
+        Title = "WalkSpeed",
+        Default = "Default",
+        Placeholder = "Enter WalkSpeed",
+        Numeric = false, -- Only allows numbers
+        Finished = false, -- Only calls callback when you press enter
+        Callback = function(Value)
+            walkSpeedValue = tonumber(Value) or 16
+            local humanoid = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+                humanoid.WalkSpeed = walkSpeedValue
+            end
+            print("Input changed:", Value)
         end
-    end
-end
- 
-local function moveto(obj, speed)
-    local info = TweenInfo.new(((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - obj.Position).Magnitude)/ speed,Enum.EasingStyle.Linear)
-    local tween = TweenService:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, info, {CFrame = obj})
- 
-    if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
-        antifall = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart)
-        antifall.Velocity = Vector3.new(0,0,0)
-        noclipE = game:GetService("RunService").Stepped:Connect(noclip)
-        tween:Play()
-    end
- 
-    tween.Completed:Connect(function()
-        antifall:Destroy()
-        noclipE:Disconnect()
+    })
+
+    Input:OnChanged(function()
+        print("Input updated:", Input.Value)
     end)
 end
 
-    
-x:CreateButton("ESP NOTE", function()
-  -- loadstring
-local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/XenonLUA/Xenon/main/Script/ESP%20XENON.lua"))()
+
+    Tabs.Main:AddButton({
+        Title = "Button",
+        Description = "ESP For Notes",
+        Callback = function()
+             -- loadstring
+             local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/XenonLUA/Xenon/main/Script/ESP%20XENON.lua"))()
+                        
+             -- config
+             ESP.Players = false
+             ESP.Boxes = false
+             ESP.Names = true
+             ESP:Toggle(true)
+
+             
+             -- object
+             ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
+                 Name = "Note1", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+                 CustomName = "Note 1", -- Name you want to be displayed
+                 Color = Color3.fromRGB(0, 255, 0), -- Color
+                 IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+             })
+
+             ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
+                 Name = "Note2", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+                 CustomName = "Note 2", -- Name you want to be displayed
+                 Color = Color3.fromRGB(0, 255, 0), -- Color
+                 IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+             })
+
+             ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
+                 Name = "Note3", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+                 CustomName = "Note 3", -- Name you want to be displayed
+                 Color = Color3.fromRGB(0, 255, 0), -- Color
+                 IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+             })
+
+             ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
+                 Name = "Note4", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+                 CustomName = "Note 4", -- Name you want to be displayed
+                 Color = Color3.fromRGB(0, 255, 0), -- Color
+                 IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+             })
+
+             ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
+                 Name = "Note5", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+                 CustomName = "Note 5", -- Name you want to be displayed
+                 Color = Color3.fromRGB(0, 255, 0), -- Color
+                 IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+             })
+
+             ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
+                 Name = "Note6", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+                 CustomName = "Note 6", -- Name you want to be displayed
+                 Color = Color3.fromRGB(0, 255, 0), -- Color
+                 IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+             })
+
+             ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
+                 Name = "Note7", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+                 CustomName = "Note 7", -- Name you want to be displayed
+                 Color = Color3.fromRGB(0, 255, 0), -- Color
+                 IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+             })
+
+             ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
+                 Name = "Note8", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+                 CustomName = "Note 8", -- Name you want to be displayed
+                 Color = Color3.fromRGB(0, 255, 0), -- Color
+                 IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+             })
+
+             ESP.whatever = true
+                 print("Confirmed ESP")
+        end
+    })
+
+    Tabs.Main:AddButton({
+        Title = "Button",
+        Description = "ESP Matches",
+        Callback = function()
+            local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/XenonLUA/Xenon/main/Script/ESP%20XENON.lua"))()
+                            
+                            -- config
+                            ESP.Players = false
+                            ESP.Boxes = false
+                            ESP.Names = true
+                            ESP:Toggle(true)
+
+                            
+                            -- object
+                            ESP:AddObjectListener(Workspace.Matches, { -- Object Path, For example: Workspace.ThisFolder
+                                Name = "Match", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+                                CustomName = "Matches", -- Name you want to be displayed
+                                Color = Color3.fromRGB(255, 0, 0), -- Color
+                                IsEnabled = "match" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+                            })
+
+                            ESP.match = true
+                            print("Confirmed the Matches.")
+        end
+    })
+
+    Tabs.Main:AddButton({
+        Title = "Button",
+        Description = "ESP for Coins",
+        Callback = function()
+            local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/XenonLUA/Xenon/main/Script/ESP%20XENON.lua"))()
  
--- config
-ESP.Players = false
-ESP.Boxes = false
-ESP.Names = true
-ESP:Toggle(true)
+                        -- config
+                        ESP.Players = false
+                        ESP.Boxes = false
+                        ESP.Names = true
+                        ESP:Toggle(true)
 
+                        
+                        -- object
+                        ESP:AddObjectListener(Workspace.House.Coins, { -- Object Path, For example: Workspace.ThisFolder
+                            Name = "Coin_2", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+                            CustomName = "Matches", -- Name you want to be displayed
+                            Color = Color3.fromRGB(212, 166, 65), -- Color
+                            IsEnabled = "match" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+                        })
+
+                        ESP:AddObjectListener(Workspace.House.Coins, { -- Object Path, For example: Workspace.ThisFolder
+                            Name = "Coin_5", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+                            CustomName = "Coins", -- Name you want to be displayed
+                            Color = Color3.fromRGB(212, 166, 65), -- Color
+                            IsEnabled = "c" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+                        })
+
+                        ESP.c = true
+                            print("Confirmed the Coins.")
+        end
+    })
+
+    Tabs.Main:AddButton({
+        Title = "Button",
+        Description = "ESP Beta",
+        Callback = function()
+            local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/XenonLUA/Xenon/main/Script/ESP%20XENON.lua"))()
  
--- object
-ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
-    Name = "Note1", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
-    CustomName = "Note 1", -- Name you want to be displayed
-    Color = Color3.fromRGB(0, 255, 0), -- Color
-    IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
-})
+                        -- config
+                        ESP.Players = false
+                        ESP.Boxes = false
+                        ESP.Names = true
+                        ESP:Toggle(true)
 
-ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
-    Name = "Note2", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
-    CustomName = "Note 2", -- Name you want to be displayed
-    Color = Color3.fromRGB(0, 255, 0), -- Color
-    IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
-})
+                        
+                        -- object
+                        ESP:AddObjectListener(Workspace, { -- Object Path, For example: Workspace.ThisFolder
+                            Name = "Beta", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+                            CustomName = "Beta", -- Name you want to be displayed
+                            Color = Color3.fromRGB(212, 0, 0), -- Color
+                            IsEnabled = "beta" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+                                })
+                                ESP.beta = true
+                            print("Confirmed the Beta.")
+        end
+    })
 
-ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
-    Name = "Note3", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
-    CustomName = "Note 3", -- Name you want to be displayed
-    Color = Color3.fromRGB(0, 255, 0), -- Color
-    IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
-})
-
-ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
-    Name = "Note4", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
-    CustomName = "Note 4", -- Name you want to be displayed
-    Color = Color3.fromRGB(0, 255, 0), -- Color
-    IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
-})
-
-ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
-    Name = "Note5", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
-    CustomName = "Note 5", -- Name you want to be displayed
-    Color = Color3.fromRGB(0, 255, 0), -- Color
-    IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
-})
-
-ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
-    Name = "Note6", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
-    CustomName = "Note 6", -- Name you want to be displayed
-    Color = Color3.fromRGB(0, 255, 0), -- Color
-    IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
-})
-
-ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
-    Name = "Note7", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
-    CustomName = "Note 7", -- Name you want to be displayed
-    Color = Color3.fromRGB(0, 255, 0), -- Color
-    IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
-})
-
-ESP:AddObjectListener(Workspace.Notes, { -- Object Path, For example: Workspace.ThisFolder
-    Name = "Note8", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
-    CustomName = "Note 8", -- Name you want to be displayed
-    Color = Color3.fromRGB(0, 255, 0), -- Color
-    IsEnabled = "whatever" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
-})
-
-ESP.whatever = true
-end)
-
-x:CreateButton("ESP Matches", function()
-  -- loadstring
-local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/XenonLUA/Xenon/main/Script/ESP%20XENON.lua"))()
+    Tabs.Main:AddButton({
+        Title = "Button",
+        Description = "ESP for Midnight",
+        Callback = function()
+            local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/XenonLUA/Xenon/main/Script/ESP%20XENON.lua"))()
  
--- config
-ESP.Players = false
-ESP.Boxes = false
-ESP.Names = true
-ESP:Toggle(true)
+                        -- config
+                        ESP.Players = false
+                        ESP.Boxes = false
+                        ESP.Names = true
+                        ESP:Toggle(true)
 
- 
--- object
-ESP:AddObjectListener(Workspace.Matches, { -- Object Path, For example: Workspace.ThisFolder
-    Name = "Match", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
-    CustomName = "Matches", -- Name you want to be displayed
-    Color = Color3.fromRGB(255, 0, 0), -- Color
-    IsEnabled = "match" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
-})
+                        
+                        -- object
+                        ESP:AddObjectListener(Workspace, { -- Object Path, For example: Workspace.ThisFolder
+                            Name = "Midnight", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
+                            CustomName = "Midnight", -- Name you want to be displayed
+                            Color = Color3.fromRGB(212, 0, 0), -- Color
+                            IsEnabled = "midnight" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
+                                })
+                                ESP.midnight = true
+                            print("Confirmed the Midnight.")
+        end
+    })
 
-ESP.match = true
-end)
+    Tabs.Main:AddButton({
+        Title = "Button",
+        Description = "Brighnes",
+        Callback = function()
+            Window:Dialog({
+                Title = "Title",
+                Content = "Brighnes",
+                Buttons = {
+                    {
+                        Title = "Confirm",
+                        Callback = function()
+                            Game.Lighting.Brightness = 1
+                            Game.Lighting.FogEnd = 100000
+                            Game.Lighting.GlobalShadows = false
+                            Game.Lighting.ClockTime = 12
+                            print("Confirmed the Brighnes.")
+                        end
+                    },
+                    {
+                        Title = "Cancel",
+                        Callback = function()
+                            Game.Lighting.Brightness = 0
+                            Game.Lighting.FogEnd = 100000
+                            Game.Lighting.GlobalShadows = false
+                            Game.Lighting.ClockTime = 12
+                            print("Cancelled the Brighnes.")
+                        end
+                    }
+                }
+            })
+        end
+    })
 
-x:CreateButton("ESP Coin", function()
-  local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/XenonLUA/Xenon/main/Script/ESP%20XENON.lua"))()
- 
--- config
-ESP.Players = false
-ESP.Boxes = false
-ESP.Names = true
-ESP:Toggle(true)
-
- 
--- object
-ESP:AddObjectListener(Workspace.House.Coins, { -- Object Path, For example: Workspace.ThisFolder
-    Name = "Coin_2", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
-    CustomName = "Matches", -- Name you want to be displayed
-    Color = Color3.fromRGB(212, 166, 65), -- Color
-    IsEnabled = "match" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
-})
-
-ESP:AddObjectListener(Workspace.House.Coins, { -- Object Path, For example: Workspace.ThisFolder
-    Name = "Coin_5", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
-    CustomName = "Coins", -- Name you want to be displayed
-    Color = Color3.fromRGB(212, 166, 65), -- Color
-    IsEnabled = "c" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
-})
-
-ESP.c = true
-end)
-
-x:CreateButton("ESP Bot", function()
-  local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/XenonLUA/Xenon/main/Script/ESP%20XENON.lua"))()
- 
--- config
-ESP.Players = false
-ESP.Boxes = false
-ESP.Names = true
-ESP:Toggle(true)
-
- 
--- object
-ESP:AddObjectListener(Workspace, { -- Object Path, For example: Workspace.ThisFolder
-    Name = "Beta", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
-    CustomName = "Beta", -- Name you want to be displayed
-    Color = Color3.fromRGB(212, 0, 0), -- Color
-    IsEnabled = "bot" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
-})
-
-ESP:AddObjectListener(Workspace, { -- Object Path, For example: Workspace.ThisFolder
-    Name = "Midnight", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
-    CustomName = "Midnight", -- Name you want to be displayed
-    Color = Color3.fromRGB(212, 0, 0), -- Color
-    IsEnabled = "bot" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
-})
-
-ESP:AddObjectListener(Workspace, { -- Object Path, For example: Workspace.ThisFolder
-    Name = "GreenMan", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
-    CustomName = "GreenMan", -- Name you want to be displayed
-    Color = Color3.fromRGB(212, 0, 0), -- Color
-    IsEnabled = "bot" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
-})
-
-ESP:AddObjectListener(Workspace, { -- Object Path, For example: Workspace.ThisFolder
-    Name = "Jumpscare1", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
-    CustomName = "Jumpscare", -- Name you want to be displayed
-    Color = Color3.fromRGB(212, 0, 0), -- Color
-    IsEnabled = "bot" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
-})
-
-ESP:AddObjectListener(Workspace, { -- Object Path, For example: Workspace.ThisFolder
-    Name = "Lights", --Object name inside of the path, for example: Workspace.ThisFolder.Item_1
-    CustomName = "Lights", -- Name you want to be displayed
-    Color = Color3.fromRGB(212, 0, 0), -- Color
-    IsEnabled = "bot" -- Any name, has to be the same as the last line: ESP.TheNameYouWant
-})
-
-
-ESP.bot = true
-end)
-
-local x = PhantomForcesWindow:NewSection("Main")
-
-local walkSpeedValue = 16
-x:CreateTextbox("WalkSpeed", function(value)
-    walkSpeedValue = tonumber(value) or 16
-    local humanoid = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-    if humanoid then
-        humanoid.WalkSpeed = walkSpeedValue
-    end
-end, {placeholder = "Enter WalkSpeed"})
-
-x:CreateButton("Brighnes", function()
-  Game.Lighting.Brightness = 1
-	Game.Lighting.FogEnd = 100000
-	Game.Lighting.GlobalShadows = false
-    Game.Lighting.ClockTime = 12
-end)
-
-x:CreateButton("Matches", function()
-  hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+    Tabs.Main:AddButton({
+        Title = "Button",
+        Description = "Teleport to Matches",
+        Callback = function()
+            hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
     			for i, v in next, workspace.Matches:GetChildren() do
     				if v.IsA(v, "Model") then
     					hrp.CFrame = CFrame.new(v:FindFirstChild("Part").Position)
     				end
     			end
-end)
+        end
+    })
 
-x:CreateButton("Exit Door", function()
-    Teleport(game:GetService("Workspace").Spawn.CFrame)
-end)
+    Tabs.Main:AddButton({
+        Title = "Button",
+        Description = "Teleport to Exit Door",
+        Callback = function()
+            Teleport(game:GetService("Workspace").Spawn.CFrame)
+        end
+    })
 
-x:CreateDropdown("Notes", {"::NOTES::","Note 1", "Note 2", "Note 3" , "Note 4", "Note 5", "Note 6", "Note 7", "Note 8"}, 1, function(value)
-  getgenv().TPPlace = value
-end)
 
-x:CreateToggle("Teleport", function()
-  a = TPPlace
-  while a do task.wait()
-  if getgenv().TPPlace == "Note 1" then
-    Teleport(game:GetService("Workspace").Notes.Note1.CFrame)
-   elseif getgenv().TPPlace == "Note 2" then
-    Teleport(game:GetService("Workspace").Notes.Note2.CFrame)
-      elseif getgenv().TPPlace == "Note 3" then
-        Teleport(game:GetService("Workspace").Notes.Note3.CFrame)
-      elseif getgenv().TPPlace == "Note 4" then
-        Teleport(game:GetService("Workspace").Notes.Note4.CFrame)
-       elseif getgenv().TPPlace == "Note 5" then
-        Teleport(game:GetService("Workspace").Notes.Note5.CFrame)
-        elseif getgenv().TPPlace == "Note 6" then
-          Teleport(game:GetService("Workspace").Notes.Note6.CFrame)
-        elseif getgenv().TPPlace == "Note 7" then
-          Teleport(game:GetService("Workspace").Notes.Note7.CFrame)
-        elseif getgenv().TPPlace == "Note 8" then
-          Teleport(game:GetService("Workspace").Notes.Note8.CFrame)
-   end
-  end
-end)
+-- Addons:
+-- SaveManager (Allows you to have a configuration system)
+-- InterfaceManager (Allows you to have a interface managment system)
 
-local x = PhantomForcesWindow:NewSection("XENON HUB")
+-- Hand the library over to our managers
+SaveManager:SetLibrary(Fluent)
+InterfaceManager:SetLibrary(Fluent)
+
+-- Ignore keys that are used by ThemeManager.
+-- (we dont want configs to save themes, do we?)
+SaveManager:IgnoreThemeSettings()
+
+-- You can add indexes of elements the save manager should ignore
+SaveManager:SetIgnoreIndexes({})
+
+-- use case for doing it this way:
+-- a script hub could have themes in a global folder
+-- and game configs in a separate folder per game
+InterfaceManager:SetFolder("FluentScriptHub")
+SaveManager:SetFolder("FluentScriptHub/specific-game")
+
+InterfaceManager:BuildInterfaceSection(Tabs.Settings)
+SaveManager:BuildConfigSection(Tabs.Settings)
+
+
+Window:SelectTab(1)
+
+Fluent:Notify({
+    Title = "Xenon",
+    Content = "The script has been loaded.",
+    Duration = 8
+})
+
+-- You can use the SaveManager:LoadAutoloadConfig() to load a config
+-- which has been marked to be one that auto loads!
+SaveManager:LoadAutoloadConfig()
