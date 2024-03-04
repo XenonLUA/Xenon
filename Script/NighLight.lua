@@ -46,14 +46,6 @@ local function moveto(obj, speed)
     end)
 end
 
-local walkSpeedValue = 16
-x:CreateTextbox("WalkSpeed", function(value)
-    walkSpeedValue = tonumber(value) or 16
-    local humanoid = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-    if humanoid then
-        humanoid.WalkSpeed = walkSpeedValue
-    end
-end, {placeholder = "Enter WalkSpeed"})
     
 x:CreateButton("ESP NOTE", function()
   -- loadstring
@@ -227,6 +219,15 @@ ESP.bot = true
 end)
 
 local x = PhantomForcesWindow:NewSection("Main")
+
+local walkSpeedValue = 16
+x:CreateTextbox("WalkSpeed", function(value)
+    walkSpeedValue = tonumber(value) or 16
+    local humanoid = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid.WalkSpeed = walkSpeedValue
+    end
+end, {placeholder = "Enter WalkSpeed"})
 
 x:CreateButton("Brighnes", function()
   Game.Lighting.Brightness = 1
