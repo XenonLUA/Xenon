@@ -123,15 +123,20 @@ DropdownMaps:OnChanged(function(Value)
 end)
 
 
-local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Auto Damage", Default = false })
+local Toggle = Tabs.Main:AddToggle("MyToggle", { Title = "Auto Damage", Default = false })
 
-    Toggle:OnChanged(function(value)
-        a = value
-        while a do task.wait(0.0001)
-            game:GetService("ReplicatedStorage").Remotes.EnemyRemotes.AttackClick:InvokeServer()
+Toggle:OnChanged(function(value)
+    a = value
+    while a do
+        task.wait() -- Tunda selama 1 detik sebelum memanggil InvokeServer kembali
+        game:GetService("ReplicatedStorage").Remotes.EnemyRemotes.AttackClick:InvokeServer()
         print("Toggle changed:", Options.MyToggle.Value)
+        
+        if not a then
+            break -- Keluar dari loop jika toggle dinonaktifkan
         end
-    end)
+    end
+end)
 
     Tabs.Main:AddParagraph({
         Title = "Auto Attack",
