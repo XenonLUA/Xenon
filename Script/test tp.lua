@@ -6,10 +6,10 @@ local localPlayer = players.LocalPlayer
 local UserInputService = game:GetService("UserInputService")
 local PlayerGui = localPlayer:WaitForChild("PlayerGui")
 
+OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Mobile%20Friendly%20Orion')))()
 
 
 local Library = {
-    OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Mobile%20Friendly%20Orion')))(),
     Items = {},
 }
 
@@ -18,45 +18,45 @@ if rconsoleprint then
 end
 
 
-Library.OrionLib:MakeWindow({Name = "Xenon HUB", HidePremium = true, IntroEnabled = false, SaveConfig = false, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({Name = "Xenon HUB", HidePremium = true, IntroEnabled = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
-local mainTab = Library.OrionLib:MakeTab({
+local mainTab = Window:MakeTab({
 	Name = "Main",
 	Icon = "rbxassetid://13313903300",
 	PremiumOnly = false
 })
 
-local miscTab = Library.OrionLib:MakeTab({
+local miscTab = Window:MakeTab({
 	Name = "Misc",
 	Icon = "rbxassetid://16307658016",
 	PremiumOnly = false
 })
 
-local dungeonTab = Library.OrionLib:MakeTab({
+local dungeonTab = Window:MakeTab({
 	Name = "Dungeon",
 	Icon = "rbxassetid://180083965",
 	PremiumOnly = false
 })
 
-local summonTab = Library.OrionLib:MakeTab({
+local summonTab = Window:MakeTab({
 	Name = "Summon",
 	Icon = "rbxassetid://938790070",
 	PremiumOnly = false
 })
 
-local teleportTab = Library.OrionLib:MakeTab({
+local teleportTab = Window:MakeTab({
 	Name = "Teleport",
 	Icon = "rbxassetid://6723742952",
 	PremiumOnly = false
 })
 
-local settingsTab = Library.OrionLib:MakeTab({
+local settingsTab = Window:MakeTab({
 	Name = "Settings",
 	Icon = "rbxassetid://4738901432",
 	PremiumOnly = false
 })
 
-local creditTab = Library.OrionLib:MakeTab({
+local creditTab = Window:MakeTab({
 	Name = "Credits",
 	Icon = "rbxassetid://7731404863",
 	PremiumOnly = false
