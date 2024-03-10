@@ -20,43 +20,43 @@ end
 
 Library.OrionLib:MakeWindow({Name = "Xenon HUB", HidePremium = true, IntroEnabled = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
-local mainTab = Library:MakeTab({
+local mainTab = Library.OrionLib:MakeTab({
 	Name = "Main",
 	Icon = "rbxassetid://13313903300",
 	PremiumOnly = false
 })
 
-local miscTab = Library:MakeTab({
+local miscTab = Library.OrionLib:MakeTab({
 	Name = "Misc",
 	Icon = "rbxassetid://16307658016",
 	PremiumOnly = false
 })
 
-local dungeonTab = Library:MakeTab({
+local dungeonTab = Library.OrionLib:MakeTab({
 	Name = "Dungeon",
 	Icon = "rbxassetid://180083965",
 	PremiumOnly = false
 })
 
-local summonTab = Library:MakeTab({
+local summonTab = Library.OrionLib:MakeTab({
 	Name = "Summon",
 	Icon = "rbxassetid://938790070",
 	PremiumOnly = false
 })
 
-local teleportTab = Library:MakeTab({
+local teleportTab = Library.OrionLib:MakeTab({
 	Name = "Teleport",
 	Icon = "rbxassetid://6723742952",
 	PremiumOnly = false
 })
 
-local settingsTab = Library:MakeTab({
+local settingsTab = Library.OrionLib:MakeTab({
 	Name = "Settings",
 	Icon = "rbxassetid://4738901432",
 	PremiumOnly = false
 })
 
-local creditTab = Library:MakeTab({
+local creditTab = Library.OrionLib:MakeTab({
 	Name = "Credits",
 	Icon = "rbxassetid://7731404863",
 	PremiumOnly = false
