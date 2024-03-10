@@ -18,45 +18,45 @@ if rconsoleprint then
 end
 
 
-local Window = OrionLib:MakeWindow({Name = "Xenon HUB", HidePremium = true, IntroEnabled = false, SaveConfig = false, ConfigFolder = "OrionTest"})
+Library.OrionLib:MakeWindow({Name = "Xenon HUB", HidePremium = true, IntroEnabled = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
-local mainTab = Window:MakeTab({
+local mainTab = Library:MakeTab({
 	Name = "Main",
 	Icon = "rbxassetid://13313903300",
 	PremiumOnly = false
 })
 
-local miscTab = Window:MakeTab({
+local miscTab = Library:MakeTab({
 	Name = "Misc",
 	Icon = "rbxassetid://16307658016",
 	PremiumOnly = false
 })
 
-local dungeonTab = Window:MakeTab({
+local dungeonTab = Library:MakeTab({
 	Name = "Dungeon",
 	Icon = "rbxassetid://180083965",
 	PremiumOnly = false
 })
 
-local summonTab = Window:MakeTab({
+local summonTab = Library:MakeTab({
 	Name = "Summon",
 	Icon = "rbxassetid://938790070",
 	PremiumOnly = false
 })
 
-local teleportTab = Window:MakeTab({
+local teleportTab = Library:MakeTab({
 	Name = "Teleport",
 	Icon = "rbxassetid://6723742952",
 	PremiumOnly = false
 })
 
-local settingsTab = Window:MakeTab({
+local settingsTab = Library:MakeTab({
 	Name = "Settings",
 	Icon = "rbxassetid://4738901432",
 	PremiumOnly = false
 })
 
-local creditTab = Window:MakeTab({
+local creditTab = Library:MakeTab({
 	Name = "Credits",
 	Icon = "rbxassetid://7731404863",
 	PremiumOnly = false
