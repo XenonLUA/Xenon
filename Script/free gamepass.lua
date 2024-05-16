@@ -136,7 +136,7 @@ end
 
 task.spawn(function()
     local discord = loadstring(game:HttpGet("https://raw.githubusercontent.com/Imalwibest/Imalwibest/main/Config%20wynerdV2.lua"))()
-    local win = discord:Window("Xenon 1.269.4 - redblues edition skided by Alwi hub")
+    local win = discord:Window("Xenon 1.269.4 - redblues edition skided by Xenon hub")
     local serv = win:Server("Xenon", "http://www.roblox.com/asset/?id=6031075938")
     local main = serv:Channel("Home")
     main:Label("\nThank you for using Xenon!\nThe #2 UGC Games Penetration Testing Tool! (mine is still better)")
