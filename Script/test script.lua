@@ -78,12 +78,12 @@ local trainEvents = {
     ["46"] = "TrainPower046",
     ["47"] = "TrainPower047",
     ["48"] = "TrainPower048",
-    ["59"] = "TrainPower050",
-    ["60"] = "TrainPower051",
-    ["61"] = "TrainPower052",
-    ["62"] = "TrainPower053",
-    ["63"] = "TrainPower054",
-    ["64"] = "TrainPower055",
+    ["49"] = "TrainPower050",
+    ["50"] = "TrainPower051",
+    ["51"] = "TrainPower052",
+    ["52"] = "TrainPower053",
+    ["53"] = "TrainPower054",
+    ["54"] = "TrainPower055",
 }
 
 local function clickBoss()
