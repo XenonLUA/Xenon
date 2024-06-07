@@ -31,7 +31,8 @@ local trainOptions = {
     ["World 4"] = { "22", "23", "24", "25", "26", "27" },
     ["World 5"] = { "29", "30", "31", "32", "33", "34" },
     ["World 6"] = { "36", "37", "38", "39", "40", "41" },
-    ["World 7"] = { "43", "44", "45", "46", "47", "48" }
+    ["World 7"] = { "43", "44", "45", "46", "47", "48" },
+    ["World 8"] = { "50", "51", "52", "53", "54", "55" }
 }
 
 local trainEvents = {
@@ -76,7 +77,13 @@ local trainEvents = {
     ["45"] = "TrainPower045",
     ["46"] = "TrainPower046",
     ["47"] = "TrainPower047",
-    ["48"] = "TrainPower048"
+    ["48"] = "TrainPower048",
+    ["59"] = "TrainPower050",
+    ["60"] = "TrainPower051",
+    ["61"] = "TrainPower052",
+    ["62"] = "TrainPower053",
+    ["63"] = "TrainPower054",
+    ["64"] = "TrainPower055",
 }
 
 local function clickBoss()
