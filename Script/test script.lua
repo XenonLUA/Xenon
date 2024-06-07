@@ -268,7 +268,7 @@ do
         Title = "Teleport Offset X",
         Min = -50,
         Max = 50,
-        Default = 0,
+        Default = 10,
         Rounding = 1,
         Callback = function(value)
             getgenv().teleportOffset = Vector3.new(value, getgenv().teleportOffset.Y, getgenv().teleportOffset.Z)
@@ -279,7 +279,7 @@ do
         Title = "Teleport Offset Y",
         Min = -50,
         Max = 50,
-        Default = 0,
+        Default = 10,
         Rounding = 1,
         Callback = function(value)
             getgenv().teleportOffset = Vector3.new(getgenv().teleportOffset.X, value, getgenv().teleportOffset.Z)
@@ -288,9 +288,9 @@ do
 
     local OffsetZSlider = Tabs.Teleport:AddSlider("OffsetZSlider", {
         Title = "Teleport Offset Z",
-        Min = -50,
-        Max = 50,
-        Default = 0,
+        Min = -10,
+        Max = 10,
+        Default = 10,
         Rounding = 1,
         Callback = function(value)
             getgenv().teleportOffset = Vector3.new(getgenv().teleportOffset.X, getgenv().teleportOffset.Y, value)
