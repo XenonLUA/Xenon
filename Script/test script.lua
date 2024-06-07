@@ -1,7 +1,7 @@
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 
 local Window = Fluent:CreateWindow({
-    Title = "Hair Cutting Simulator " .. Fluent.Version,
+    Title = "Reborn a swordan 0.1",
     SubTitle = "by Xenon HUB",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
@@ -22,6 +22,7 @@ getgenv().training = false
 getgenv().selectedPart = nil
 getgenv().teleport = false
 getgenv().teleportOffset = Vector3.new(0, 0, 0)
+getgenv().selectedWorld = nil
 
 local trainOptions = {
     ["World 1"] = { "1", "2", "3", "4", "5", "6" },
@@ -177,6 +178,7 @@ local function teleportToFightNpcs()
     end
 end
 
+
 do
     Fluent:Notify({
         Title = "Notification",
@@ -268,7 +270,7 @@ do
         Title = "Teleport Offset X",
         Min = -50,
         Max = 50,
-        Default = 10,
+        Default = 3,
         Rounding = 1,
         Callback = function(value)
             getgenv().teleportOffset = Vector3.new(value, getgenv().teleportOffset.Y, getgenv().teleportOffset.Z)
